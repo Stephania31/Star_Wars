@@ -1,7 +1,15 @@
 /* 
     General Styles used on every website (Don't Repeat Yourself)
 */
-.logo {
-  height: 5rem;
-  width: 5rem;
+.container-fluid {
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 10px 10px 20px 10px;
+  padding-bottom: 20px;
 }

@@ -3,19 +3,19 @@ import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import FotoGrande from "../../img/fotoGrande.jpg";
 
-const SinglePeople = () => {
+const SingleVehicles = () => {
   const { store, actions } = useContext(Context);
   const params = useParams();
-  const [people, setPeople] = useState({});
+  const [vehicles, setVehicles] = useState({});
 
   useEffect(() => {
     const cargaDatos = async () => {
       let { respuestaJson, response } = await actions.useFetch(
-        `/people/${params.uid}`
+        `/vehicles/${params.uid}`
       );
       if (response.ok) {
         console.log(respuestaJson);
-        setPeople(respuestaJson.result.properties);
+        setVehicles(respuestaJson.result.properties);
       }
     };
     cargaDatos();
@@ -54,10 +54,10 @@ const SinglePeople = () => {
           <div className="col-md-8">
             <div className="card-body">
               <h5 className="card-title">
-                {people && people.name ? people.name : "Loading..."}
+                {vehicles && vehicles.name ? vehicles.name : "Loading"}
               </h5>
               <p className="card-text">
-                {people ? `/people/${params.uid}` : "Loading..."}
+                {vehicles ? `/vehicles/${params.uid}` : "Loading..."}
               </p>
             </div>
           </div>
@@ -67,4 +67,4 @@ const SinglePeople = () => {
   );
 };
 
-export default SinglePeople;
+export default SingleVehicles;

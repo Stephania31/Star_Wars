@@ -7,12 +7,14 @@ import { ToDo } from "./pages/todos.jsx";
 
 import StarWars from "./pages/starWars.jsx";
 import SinglePeople from "./pages/singlePeople.jsx";
+import SinglePlanet from "./pages/singlePlanet.jsx";
+import SingleVehicles from "./pages/singleVehicles.jsx";
 
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
 
-import { Navbar } from "./component/Navbar";
+import { Navbar } from "./component/Navbar.jsx";
 import { Footer } from "./component/footer";
 
 //create your first component
@@ -39,6 +41,8 @@ const Layout = () => {
             />{" "}
             <Route element={<Single />} path="/single/:thetitle" />
             <Route element={<SinglePeople />} path="/people/:uid" />
+            <Route element={<SinglePlanet />} path="/planet/:uid" />
+            <Route element={<SingleVehicles />} path="/vehicles/:uid" />
             <Route element={<h1> Not found!404 </h1>} path="*" />
           </Routes>{" "}
           <Footer />

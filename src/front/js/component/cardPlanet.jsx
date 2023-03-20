@@ -3,19 +3,7 @@ import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import FotoChica from "../../img/fotoChica.png";
 
-const CardPeople = (props) => {
-  const [isFavorite, setIsFavorite] = useState(false);
-  const { actions } = useContext(Context);
-
-  const handleFavorite = () => {
-    setIsFavorite(!isFavorite);
-    if (!isFavorite) {
-      actions.addFavorite(props.name);
-    } else {
-      actions.removeFavorite(props.name);
-    }
-  };
-
+const CardPlanet = (props) => {
   return (
     <div>
       <div className="card" style={{ width: "18rem" }}>
@@ -27,23 +15,18 @@ const CardPeople = (props) => {
             bulk of the card's content.
           </p>
           <Link
-            to={`/people/${props.uid}`}
+            to={`/planet/${props.uid}`}
             className="btn btn-outline-primary "
           >
             Learn More!
           </Link>
-          <button
-            className={`heart btn btn-outline-warning ${
-              isFavorite ? "favorite" : ""
-            }`}
-            onClick={handleFavorite}
-          >
+          <Link to={`/planet/${props.uid}`} className="heart btn btn-outline-warning">
             <i className="far fa-heart"></i>
-          </button>
+          </Link>
         </div>
       </div>
     </div>
   );
 };
 
-export default CardPeople;
+export default CardPlanet;

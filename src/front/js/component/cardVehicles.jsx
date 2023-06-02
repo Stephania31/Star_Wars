@@ -7,7 +7,11 @@ const CardVehicles = (props) => {
   return (
     <div>
       <div className="card" style={{ width: "18rem" }}>
-        <img src={FotoChica} className="card-img-top" alt="una imagen" />
+        <img
+          src={`https://starwars-visualguide.com/assets/img/vehicles/${props.uid}.jpg`}
+          className="card-img-top"
+          alt="..."
+        />
         <div className="card-body">
           <h5 className="card-title">{props.name}</h5>
           <p className="card-text">
@@ -20,7 +24,10 @@ const CardVehicles = (props) => {
           >
             Learn More!
           </Link>
-          <Link to={`/vehicles/${props.uid}`} className="heart btn btn-outline-warning">
+          <Link
+            to={`/vehicles/${props.uid}`}
+            className="heart btn btn-outline-warning"
+          >
             <i className="far fa-heart"></i>
           </Link>
         </div>

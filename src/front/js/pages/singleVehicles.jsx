@@ -6,16 +6,16 @@ import FotoGrande from "../../img/fotoGrande.jpg";
 const SingleVehicles = () => {
   const { store, actions } = useContext(Context);
   const params = useParams();
-  const [vehicles, setVehicles] = useState({});
+  const [vehicle, setVehicle] = useState({});
 
   useEffect(() => {
     const cargaDatos = async () => {
-      let { respuestaJson, response } = await actions.useFetch(
+      const { respuestaJson, response } = await actions.useFetch(
         `/vehicles/${params.uid}`
       );
       if (response.ok) {
         console.log(respuestaJson);
-        setVehicles(respuestaJson.result.properties);
+        setVehicle(respuestaJson.result.properties);
       }
     };
     cargaDatos();
@@ -27,37 +27,32 @@ const SingleVehicles = () => {
         <div className="row g-0">
           <div className="col-md-4">
             <img
-              src={FotoGrande}
+              src={`https://starwars-visualguide.com/assets/img/vehicles/${params.uid}.jpg`}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src =
+                  "https://starwars-visualguide.com/assets/img/big-placeholder.jpg";
+              }}
               className="img-fluid rounded-start"
               alt="..."
             />
             <div
               className="single-table border-top border-danger"
               style={{ width: "50rem" }}
-            >
-              <table className="table table-borderless">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th className="text-danger">Name</th>
-                    <th className="text-danger">Birth Year</th>
-                    <th className="text-danger">Gender</th>
-                    <th className="text-danger">Height</th>
-                    <th className="text-danger">Skin Color</th>
-                    <th className="text-danger">Eye Color</th>
-                  </tr>
-                </thead>
-                <tbody>{/* Agregue aquí los datos de la tabla */}</tbody>
-              </table>
-            </div>
+            ></div>
           </div>
           <div className="col-md-8">
             <div className="card-body">
               <h5 className="card-title">
-                {vehicles && vehicles.name ? vehicles.name : "Loading"}
+                {vehicle && vehicle.name ? vehicle.name : "Loading"}
               </h5>
               <p className="card-text">
-                {vehicles ? `/vehicles/${params.uid}` : "Loading..."}
+                Model: {vehicle.model} <br />
+                Length: {vehicle.length} <br />
+                Manufacturer: {vehicle.manufacturer} <br />
+                Cargo Capacity: {vehicle.cargo_capacity} <br />
+                Max. Speed: {vehicle.max_atmosphering_speed} <br />
+                Class: {vehicle.vehicle_class}
               </p>
             </div>
           </div>

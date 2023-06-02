@@ -11,7 +11,7 @@ const SinglePlanet = () => {
   useEffect(() => {
     const cargaDatos = async () => {
       let { respuestaJson, response } = await actions.useFetch(
-        `/planet/${params.uid}`
+        `/planets/${params.uid}`
       );
       if (response.ok) {
         console.log(respuestaJson);
@@ -27,29 +27,19 @@ const SinglePlanet = () => {
         <div className="row g-0">
           <div className="col-md-4">
             <img
-              src={FotoGrande}
+              src={`https://starwars-visualguide.com/assets/img/planets/${params.uid}.jpg`}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src =
+                  "https://upload.wikimedia.org/wikipedia/en/6/6d/Tatooine_%28fictional_desert_planet%29.jpg";
+              }}
               className="img-fluid rounded-start"
               alt="..."
             />
             <div
               className="single-table border-top border-danger"
               style={{ width: "50rem" }}
-            >
-              <table className="table table-borderless">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th className="text-danger">Name</th>
-                    <th className="text-danger">Birth Year</th>
-                    <th className="text-danger">Gender</th>
-                    <th className="text-danger">Height</th>
-                    <th className="text-danger">Skin Color</th>
-                    <th className="text-danger">Eye Color</th>
-                  </tr>
-                </thead>
-                <tbody>{/* Agregue aquí los datos de la tabla */}</tbody>
-              </table>
-            </div>
+            ></div>
           </div>
           <div className="col-md-8">
             <div className="card-body">
@@ -57,7 +47,12 @@ const SinglePlanet = () => {
                 {planet && planet.name ? planet.name : "Loading..."}
               </h5>
               <p className="card-text">
-                {planet ? `/planet/${params.uid}` : "Loading..."}
+                Climate: {planet.climate} <br />
+                Diameter: {planet.diameter} <br />
+                Gravity: {planet.gravity} <br />
+                Orbital Period: {planet.orbital_period} <br />
+                Population: {planet.population} <br />
+                Terrain: {planet.terrain}
               </p>
             </div>
           </div>

@@ -27,29 +27,19 @@ const SinglePeople = () => {
         <div className="row g-0">
           <div className="col-md-4">
             <img
-              src={FotoGrande}
+              src={`https://starwars-visualguide.com/assets/img/characters/${params.uid}.jpg`}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src =
+                  "https://starwars-visualguide.com/assets/img/big-placeholder.jpg";
+              }}
               className="img-fluid rounded-start"
               alt="..."
             />
             <div
               className="single-table border-top border-danger"
               style={{ width: "50rem" }}
-            >
-              <table className="table table-borderless">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th className="text-danger">Name</th>
-                    <th className="text-danger">Birth Year</th>
-                    <th className="text-danger">Gender</th>
-                    <th className="text-danger">Height</th>
-                    <th className="text-danger">Skin Color</th>
-                    <th className="text-danger">Eye Color</th>
-                  </tr>
-                </thead>
-                <tbody>{/* Agregue aquí los datos de la tabla */}</tbody>
-              </table>
-            </div>
+            ></div>
           </div>
           <div className="col-md-8">
             <div className="card-body">
@@ -57,7 +47,11 @@ const SinglePeople = () => {
                 {people && people.name ? people.name : "Loading..."}
               </h5>
               <p className="card-text">
-                {people ? `/people/${params.uid}` : "Loading..."}
+                Gender: {people?.gender} <br /> Height:{people?.height} <br />{" "}
+                Mass:{people?.mass}
+                <br /> Hair Color:{people?.hair_color}
+                <br />
+                Birth Year:{people?.birth_year}
               </p>
             </div>
           </div>

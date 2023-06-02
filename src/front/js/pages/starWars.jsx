@@ -35,31 +35,6 @@ const StarWars = () => {
     cargaDatos();
   }, []);
 
-  const cargaParalelo = async () => {
-    let promesaPlanetas = actions.useFetchParalelo("/planets");
-    let promesaPeople = actions.useFetchParalelo("/people");
-    let promesaVehicles = actions.useFetchParalelo("/vehicles");
-
-    let [a, b, c] = await Promise.all([
-      promesaPlanetas,
-      promesaPeople,
-      promesaVehicles,
-    ]);
-
-    a = await a.json();
-    setListPlanets(a.results);
-
-    b = await b.json();
-    setListPeople(b.results);
-
-    c = await c.json();
-    setListVehicles(c.results);
-  };
-  cargaParalelo();
-  useEffect(() => {}, [listPeople]);
-  useEffect(() => {}, [listPlanets]);
-  useEffect(() => {}, [listVehicles]);
-
   return (
     <>
       <div className="fondo bg-dark bg-gradient">

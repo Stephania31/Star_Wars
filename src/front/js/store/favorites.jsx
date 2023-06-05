@@ -16,9 +16,7 @@ export function favoritesActions(getStore, getActions, setStore) {
         arrTemp.push(objeto);
         setStore({ ...store, favorites: arrTemp });
         return true;
-      } catch (error) {
-        console.error("Error adding favorite:", error);
-      }
+      } catch (error) {}
     },
 
     deleteFavorite: async (uid) => {

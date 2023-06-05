@@ -23,9 +23,12 @@ const SinglePeople = () => {
 
   return (
     <>
-      <div className="single card mb-3 border-0" style={{ width: "60rem" }}>
+      <div
+        className="single card mb-3 border-dark-subtle p-3"
+        style={{ width: "60rem" }}
+      >
         <div className="row g-0">
-          <div className="col-md-4">
+          <div className="col-md-4 mt-5">
             <img
               src={`https://starwars-visualguide.com/assets/img/characters/${params.uid}.jpg`}
               onError={(e) => {
@@ -36,23 +39,41 @@ const SinglePeople = () => {
               className="img-fluid rounded-start"
               alt="..."
             />
-            <div
-              className="single-table border-top border-danger"
-              style={{ width: "50rem" }}
-            ></div>
+            <div className="single-table" style={{ width: "50rem" }}></div>
           </div>
-          <div className="col-md-8">
+          <div className="col-md-8 mt-5">
             <div className="card-body">
-              <h5 className="card-title">
-                {people && people.name ? people.name : "Loading..."}
-              </h5>
-              <p className="card-text">
-                Gender: {people?.gender} <br /> Height:{people?.height} <br />{" "}
-                Mass:{people?.mass}
-                <br /> Hair Color:{people?.hair_color}
-                <br />
-                Birth Year:{people?.birth_year}
-              </p>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th className="name fs-1" scope="col">
+                      {people && people.name ? people.name : "Loading..."}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="table-secondary">
+                    <th scope="row">Gender:</th>
+                    <td>{people?.gender}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Height:</th>
+                    <td>{people?.height}</td>
+                  </tr>
+                  <tr className="table-secondary">
+                    <th scope="row">Mass:</th>
+                    <td colspan="2">{people?.mass}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Hair Color:</th>
+                    <td colspan="2">{people?.hair_color}</td>
+                  </tr>
+                  <tr className="table-secondary">
+                    <th scope="row"> Birth Year:</th>
+                    <td colspan="2">{people?.birth_year}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

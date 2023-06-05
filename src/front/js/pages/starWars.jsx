@@ -9,9 +9,9 @@ import { todoActions } from "../store/todos";
 
 const StarWars = () => {
   const { store, actions } = useContext(Context);
-  const [listPeople, setListPeople] = useState([1, 2, 3, 4, 5, 6]);
-  const [listVehicles, setListVehicles] = useState({});
-  const [listPlanets, setListPlanets] = useState({});
+  const [listPeople, setListPeople] = useState([]);
+  const [listVehicles, setListVehicles] = useState([]);
+  const [listPlanets, setListPlanets] = useState([]);
 
   //se ejecuta la primera vez que se reenderiza el componente
   useEffect(() => {

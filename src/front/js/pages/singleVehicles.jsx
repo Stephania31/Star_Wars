@@ -23,9 +23,12 @@ const SingleVehicles = () => {
 
   return (
     <>
-      <div className="single card mb-3 border-0" style={{ width: "60rem" }}>
+      <div
+        className="single card mb-3 border-dark-subtle p-3"
+        style={{ width: "60rem" }}
+      >
         <div className="row g-0">
-          <div className="col-md-4">
+          <div className="col-md-4 mt-5">
             <img
               src={`https://starwars-visualguide.com/assets/img/vehicles/${params.uid}.jpg`}
               onError={(e) => {
@@ -36,24 +39,45 @@ const SingleVehicles = () => {
               className="img-fluid rounded-start"
               alt="..."
             />
-            <div
-              className="single-table border-top border-danger"
-              style={{ width: "50rem" }}
-            ></div>
+            <div className="single-table" style={{ width: "50rem" }}></div>
           </div>
           <div className="col-md-8">
             <div className="card-body">
-              <h5 className="card-title">
-                {vehicle && vehicle.name ? vehicle.name : "Loading"}
-              </h5>
-              <p className="card-text">
-                Model: {vehicle.model} <br />
-                Length: {vehicle.length} <br />
-                Manufacturer: {vehicle.manufacturer} <br />
-                Cargo Capacity: {vehicle.cargo_capacity} <br />
-                Max. Speed: {vehicle.max_atmosphering_speed} <br />
-                Class: {vehicle.vehicle_class}
-              </p>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th className="name fs-1" scope="col">
+                      {vehicle && vehicle.name ? vehicle.name : "Loading"}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="table-secondary">
+                    <th scope="row">Model:</th>
+                    <td>{vehicle.model}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Length:</th>
+                    <td>{vehicle.length}</td>
+                  </tr>
+                  <tr className="table-secondary">
+                    <th scope="row">Manufacturer:</th>
+                    <td colspan="2">{vehicle.manufacturer}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Cargo Capacity:</th>
+                    <td colspan="2">{vehicle.cargo_capacity}</td>
+                  </tr>
+                  <tr className="table-secondary">
+                    <th scope="row"> Max. Speed:</th>
+                    <td colspan="2"> {vehicle.max_atmosphering_speed}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Class:</th>
+                    <td colspan="2">{vehicle.vehicle_class}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

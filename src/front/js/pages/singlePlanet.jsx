@@ -23,9 +23,12 @@ const SinglePlanet = () => {
 
   return (
     <>
-      <div className="single card mb-3 border-0" style={{ width: "60rem" }}>
+      <div
+        className="single card mb-3 border-dark-subtle p-3"
+        style={{ width: "60rem" }}
+      >
         <div className="row g-0">
-          <div className="col-md-4">
+          <div className="col-md-4 mt-5">
             <img
               src={`https://starwars-visualguide.com/assets/img/planets/${params.uid}.jpg`}
               onError={(e) => {
@@ -36,24 +39,45 @@ const SinglePlanet = () => {
               className="img-fluid rounded-start"
               alt="..."
             />
-            <div
-              className="single-table border-top border-danger"
-              style={{ width: "50rem" }}
-            ></div>
+            <div className="single-table" style={{ width: "50rem" }}></div>
           </div>
-          <div className="col-md-8">
+          <div className="col-md-8 mt-3">
             <div className="card-body">
-              <h5 className="card-title">
-                {planet && planet.name ? planet.name : "Loading..."}
-              </h5>
-              <p className="card-text">
-                Climate: {planet.climate} <br />
-                Diameter: {planet.diameter} <br />
-                Gravity: {planet.gravity} <br />
-                Orbital Period: {planet.orbital_period} <br />
-                Population: {planet.population} <br />
-                Terrain: {planet.terrain}
-              </p>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th className="name fs-1" scope="col">
+                      {planet && planet.name ? planet.name : "Loading..."}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="table-secondary">
+                    <th scope="row">Climate:</th>
+                    <td>{planet.climate}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Diameter:</th>
+                    <td>{planet.diameter}</td>
+                  </tr>
+                  <tr className="table-secondary">
+                    <th scope="row">Gravity:</th>
+                    <td colspan="2">{planet.gravity}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Orbital Period:</th>
+                    <td colspan="2">{planet.orbital_period}</td>
+                  </tr>
+                  <tr className="table-secondary">
+                    <th scope="row"> Population:</th>
+                    <td colspan="2">{planet.population}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Terrain:</th>
+                    <td colspan="2">{planet.terrain}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

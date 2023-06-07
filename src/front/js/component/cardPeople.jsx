@@ -1,19 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
-import FotoChica from "../../img/fotoChica.png";
 
 const CardPeople = (props) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const { actions } = useContext(Context);
 
-  const handleFavorite = () => {
-    setIsFavorite(!isFavorite);
-    if (!isFavorite) {
-      actions.addFavorite(props.name);
-    } else {
-      actions.removeFavorite(props.name);
-    }
+  const addToFavorites = () => {
+    actions.addFavorite(props.item);
   };
 
   return (
@@ -30,17 +24,13 @@ const CardPeople = (props) => {
             Some quick example text to build on the card title and make up the
             bulk of the card's content.
           </p>
-          <Link
-            to={`/people/${props.uid}`}
-            className="btn btn-outline-primary "
-          >
+          <Link to={`/people/${props.uid}`} className="btn btn-outline-primary">
             Learn More!
           </Link>
           <button
-            className={`heart btn btn-outline-warning ${
-              isFavorite ? "favorite" : ""
-            }`}
-            onClick={handleFavorite}
+            type="button"
+            className="btn btn-outline-danger ms-2"
+            onClick={addToFavorites}
           >
             <i className="far fa-heart"></i>
           </button>

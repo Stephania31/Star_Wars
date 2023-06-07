@@ -1,39 +1,67 @@
-export const favoritesStore = {
-  favorites: [],
+export const swStore = {
+  favoritosStore: [
+    { uid: "probando", name: "test1" },
+    { uid: "probando2", name: "test2" },
+  ],
+  initialFetch: [],
 };
 
-export function favoritesActions(getStore, getActions, setStore) {
+export function swActions(getStore, getActions, setStore) {
   return {
-    addFavorite: async (objeto) => {
-      try {
-        let store = getStore();
-        let arrTemp = store.favorites.slice();
+    addFavorite: (item) => {
+      let store = getStore();
+      const favoritosStore = store.favoritosStore || []; // Agrega esta línea para verificar si favoritosStore es undefined y asignar un array vacío en su lugar
+      const nameExists = favoritosStore.some(
+        (favorite) => favorite.name === item.name
+      );
+      if (nameExists) {
+        alert(`"${item.name}" already exists in favorites.`);
+        return;
+      }
+      const updatedFavorites = [...favoritosStore, item];
+      setStore({ favoritosStore: updatedFavorites });
 
-        if (arrTemp.some((item) => item.name === objeto.name)) {
-          return;
-        }
-
-        arrTemp.push(objeto);
-        setStore({ ...store, favorites: arrTemp });
-        return true;
-      } catch (error) {}
+      return;
     },
+    removeFavorite: (i) => {
+      let store = getStore();
+      let arrTemp = store.favoritosStore.filter((item, index) => {
+        return index != i;
+      });
+      setStore({ ...store, favoritosStore: arrTemp });
 
-    deleteFavorite: async (uid) => {
+      return;
+    },
+    initialFetchSwapi: async () => {
       try {
         let store = getStore();
-        let arrTemp = store.favorites.slice();
-        const index = arrTemp.findIndex((item) => item.uid === uid);
+        let responsePeople = fetch("https://www.swapi.tech/api/people");
+        let responseVehicles = fetch("https://www.swapi.tech/api/vehicles");
+        let responsePlanets = fetch("https://www.swapi.tech/api/planets");
 
-        if (index === -1) {
-          return;
-        }
+        let [respuestaJsonPeople, respuestaJsonVehicles, respuestaJsonPlanets] =
+          await Promise.all([
+            responsePeople,
+            responseVehicles,
+            responsePlanets,
+          ]).then((responses) =>
+            Promise.all(responses.map((response) => response.json()))
+          );
 
-        arrTemp.splice(index, 1);
-        setStore({ ...store, favorites: arrTemp });
-        return true;
+        console.log(respuestaJsonPeople);
+        console.log(respuestaJsonVehicles);
+        console.log(respuestaJsonPlanets);
+
+        setStore({
+          ...store,
+          initialFetch: [
+            respuestaJsonPeople.results,
+            respuestaJsonVehicles.results,
+            respuestaJsonPlanets.results,
+          ],
+        });
       } catch (error) {
-        console.error("Error deleting favorite:", error);
+        console.error(error);
       }
     },
   };

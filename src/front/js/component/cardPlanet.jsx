@@ -4,6 +4,14 @@ import { Link } from "react-router-dom";
 import FotoChica from "../../img/fotoChica.png";
 
 const CardPlanet = (props) => {
+  const [isFavorite, setIsFavorite] = useState(false);
+  const { actions } = useContext(Context);
+
+  const addToFavorites = () => {
+    actions.addFavorite(props.item);
+    setIsFavorite(true);
+  };
+
   return (
     <div>
       <div className="card" style={{ width: "18rem" }}>
@@ -29,12 +37,14 @@ const CardPlanet = (props) => {
           >
             Learn More!
           </Link>
-          <Link
-            to={`/planet/${props.uid}`}
+          <button
+            type="button"
             className="heart btn btn-outline-warning"
+            onClick={addToFavorites}
+            disabled={isFavorite}
           >
             <i className="far fa-heart"></i>
-          </Link>
+          </button>
         </div>
       </div>
     </div>

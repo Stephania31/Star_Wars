@@ -29,7 +29,7 @@ const CardPeople = (props) => {
           </Link>
           <button
             type="button"
-            className="btn btn-outline-danger ms-2"
+            className="btn btn-outline-danger ms-3"
             onClick={addToFavorites}
           >
             <i className="far fa-heart"></i>

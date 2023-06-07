@@ -32,7 +32,7 @@ export const Navbar = () => {
   }, []);
   return (
     <nav className="navbar navbar-light bg-dark bg-gradient bg-opacity-75">
-      <div className="container">
+      <div className="container ms-3">
         <Link to="/">
           <span className="navbar-brand mb-0 h1">
             <img

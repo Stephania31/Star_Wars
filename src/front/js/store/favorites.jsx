@@ -2,6 +2,7 @@ export const swStore = {
   favoritosStore: [
     { uid: "probando", name: "test1" },
     { uid: "probando2", name: "test2" },
+    { uid: "probando3", name: "test3" },
   ],
   initialFetch: [],
 };
@@ -10,7 +11,7 @@ export function swActions(getStore, getActions, setStore) {
   return {
     addFavorite: (item) => {
       let store = getStore();
-      const favoritosStore = store.favoritosStore || []; // Agrega esta línea para verificar si favoritosStore es undefined y asignar un array vacío en su lugar
+      const favoritosStore = store.favoritosStore || [];
       const nameExists = favoritosStore.some(
         (favorite) => favorite.name === item.name
       );

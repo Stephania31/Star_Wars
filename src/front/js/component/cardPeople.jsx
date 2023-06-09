@@ -28,9 +28,16 @@ const CardPeople = (props) => {
             Learn More!
           </Link>
           <button
-            type="button"
-            className="btn btn-outline-danger ms-3"
-            onClick={addToFavorites}
+            className="btn btn-outline-warning"
+            id="heart"
+            onClick={() => {
+              actions.addFavorite({
+                name: props.name,
+                uid: props.uid,
+                category: "people",
+                link: `/people/${props.uid}`,
+              });
+            }}
           >
             <i className="far fa-heart"></i>
           </button>

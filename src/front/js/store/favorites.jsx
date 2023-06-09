@@ -1,69 +1,30 @@
 export const swStore = {
-  favoritosStore: [
-    { uid: "probando", name: "test1" },
-    { uid: "probando2", name: "test2" },
-    { uid: "probando3", name: "test3" },
-  ],
-  initialFetch: [],
+  favoritosStore: [], // [{name:"Luke", uid:1, categoria:"people", link:"/people/1"},{}]
 };
 
 export function swActions(getStore, getActions, setStore) {
   return {
-    addFavorite: (item) => {
+    addFavorite: async (objeto) => {
       let store = getStore();
-      const favoritosStore = store.favoritosStore || [];
-      const nameExists = favoritosStore.some(
-        (favorite) => favorite.name === item.name
-      );
-      if (nameExists) {
-        alert(`"${item.name}" already exists in favorites.`);
-        return;
-      }
-      const updatedFavorites = [...favoritosStore, item];
-      setStore({ favoritosStore: updatedFavorites });
+      let arrTemp = store.favoritosStore.slice(); //copio el estado centralizado
 
-      return;
+      if (arrTemp.length > 0) {
+        for (let i = 0; i < arrTemp.length; i++) {
+          if (arrTemp[i]["name"] == objeto.name) {
+            return; //saldría de la función aquí
+          }
+        }
+      }
+
+      arrTemp.push(objeto);
+      setStore({ ...store, favoritosStore: arrTemp }); // [..favoritos, objeto]
+      return true;
     },
-    removeFavorite: (i) => {
+    deleteFavorite: async (index) => {
       let store = getStore();
-      let arrTemp = store.favoritosStore.filter((item, index) => {
-        return index != i;
-      });
+      let arrTemp = store.favoritosStore.slice();
+      arrTemp.splice(index, 1);
       setStore({ ...store, favoritosStore: arrTemp });
-
-      return;
-    },
-    initialFetchSwapi: async () => {
-      try {
-        let store = getStore();
-        let responsePeople = fetch("https://www.swapi.tech/api/people");
-        let responseVehicles = fetch("https://www.swapi.tech/api/vehicles");
-        let responsePlanets = fetch("https://www.swapi.tech/api/planets");
-
-        let [respuestaJsonPeople, respuestaJsonVehicles, respuestaJsonPlanets] =
-          await Promise.all([
-            responsePeople,
-            responseVehicles,
-            responsePlanets,
-          ]).then((responses) =>
-            Promise.all(responses.map((response) => response.json()))
-          );
-
-        console.log(respuestaJsonPeople);
-        console.log(respuestaJsonVehicles);
-        console.log(respuestaJsonPlanets);
-
-        setStore({
-          ...store,
-          initialFetch: [
-            respuestaJsonPeople.results,
-            respuestaJsonVehicles.results,
-            respuestaJsonPlanets.results,
-          ],
-        });
-      } catch (error) {
-        console.error(error);
-      }
     },
   };
 }

@@ -38,10 +38,16 @@ const CardPlanet = (props) => {
             Learn More!
           </Link>
           <button
-            type="button"
-            className="heart btn btn-outline-warning"
-            onClick={addToFavorites}
-            disabled={isFavorite}
+            className="btn btn-outline-warning"
+            id="heart"
+            onClick={() => {
+              actions.addFavorite({
+                name: props.name,
+                uid: props.uid,
+                category: "planets",
+                link: `/planet/${props.uid}`,
+              });
+            }}
           >
             <i className="far fa-heart"></i>
           </button>

@@ -5,31 +5,11 @@ import SwLogo from "../../img/swLogo.jpg";
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
-  const [favorites, setFavorites] = useState(store.favoritosStore);
-  const dropdownRef = useRef(null);
 
-  useEffect(() => {
-    setFavorites(store.favoritosStore);
-  }, [store.favoritosStore]);
+  const handleDelete = (itemIndex) => {
+    actions.deleteFavorite(itemIndex);
+  };
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        dropdownRef.current &&
-        dropdownRef.current.contains(event.target) &&
-        dropdownRef.current.querySelector(".dropdown-menu")
-      ) {
-        const dropdownMenu =
-          dropdownRef.current.querySelector(".dropdown-menu");
-        dropdownMenu.classList.remove("show");
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
   return (
     <nav className="navbar navbar-light bg-dark bg-gradient bg-opacity-75">
       <div className="container ms-3">
@@ -45,48 +25,44 @@ export const Navbar = () => {
             />
           </span>
         </Link>
-        <div className="btn-group">
-          <button
-            type="button"
-            className="btn btn-danger dropdown-toggle"
+        <div className="nav-item dropdown btn btn-danger">
+          <div
+            className="nav-link dropdown-toggle"
+            id="navbarDropdown"
+            role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
-            style={{
-              fontWeight: "bold",
-              fontSize: "1.2rem",
-            }}
           >
-            Favorites {store.favoritosStore?.length ?? 0}
-          </button>
-          <ul className="dropdown-menu" ref={dropdownRef}>
-            {favorites && favorites.length > 0 ? (
+            Favorites
+          </div>
+          <ul
+            className="dropdown-menu list-unstyled"
+            aria-labelledby="navbarDropdown"
+          >
+            {store.favoritosStore && store.favoritosStore.length > 0 ? (
               <>
-                {favorites.map((item, index) => {
+                {store.favoritosStore.map((item, index) => {
                   return (
-                    <li
-                      key={index}
-                      className="dropdown-item d-flex justify-content-between align-items-center"
-                    >
-                      <Link
-                        to={(item?.url ?? "") + (item?.uid ?? "")}
-                        className="item-name"
-                      >
-                        <span className="item-name">
-                          {item?.name ?? "Unknown"}
-                        </span>
-                      </Link>
-                      <i
-                        className="btn fa-solid fa-trash-can fa-lg"
-                        onClick={() => {
-                          actions.removeFavorite(index);
-                        }}
-                      ></i>
-                    </li>
+                    <>
+                      <React.Fragment key={index}>
+                        <Link to={item.link} className="text-left">
+                          <li className="d-flex align-items-center">
+                            {item.name}
+                          </li>
+                        </Link>
+                        <button
+                          className="btn btn-sm btn-danger"
+                          onClick={() => handleDelete(index)}
+                        >
+                          <i className="fa-solid fa-trash"></i>
+                        </button>
+                      </React.Fragment>
+                    </>
                   );
                 })}
               </>
             ) : (
-              <>It is empty</>
+              <>No favorites yet</>
             )}
           </ul>
         </div>

@@ -25,9 +25,9 @@ export const Navbar = () => {
             />
           </span>
         </Link>
-        <div className="nav-item dropdown btn btn-danger">
+        <div className="nav-item dropdown btn btn-danger text-black">
           <div
-            className="nav-link dropdown-toggle"
+            className="nav-link dropdown-toggle fs-5 text-black"
             id="navbarDropdown"
             role="button"
             data-bs-toggle="dropdown"
@@ -45,17 +45,19 @@ export const Navbar = () => {
                   return (
                     <>
                       <React.Fragment key={index}>
-                        <Link to={item.link} className="text-left">
-                          <li className="d-flex align-items-center">
-                            {item.name}
-                          </li>
-                        </Link>
-                        <button
-                          className="btn btn-sm btn-danger"
-                          onClick={() => handleDelete(index)}
-                        >
-                          <i className="fa-solid fa-trash"></i>
-                        </button>
+                        <div className="d-flex align-items-center">
+                          <Link to={item.link}>
+                            <li className="d-flex align-items-center ms-2">
+                              {item.name}
+                            </li>
+                          </Link>
+                          <button
+                            className="btn btn-sm ms-3"
+                            onClick={() => handleDelete(index)}
+                          >
+                            <i className="fas fa-trash-alt"></i>
+                          </button>
+                        </div>
                       </React.Fragment>
                     </>
                   );

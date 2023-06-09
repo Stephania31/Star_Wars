@@ -24,11 +24,14 @@ const CardPeople = (props) => {
             Some quick example text to build on the card title and make up the
             bulk of the card's content.
           </p>
-          <Link to={`/people/${props.uid}`} className="btn btn-outline-primary">
+          <Link
+            to={`/people/${props.uid}`}
+            className="btn btn-outline-primary me-5"
+          >
             Learn More!
           </Link>
           <button
-            className="btn btn-outline-warning"
+            className="btn btn-outline-warning ms-5"
             id="heart"
             onClick={() => {
               actions.addFavorite({

@@ -28,12 +28,12 @@ const CardVehicles = (props) => {
           </p>
           <Link
             to={`/vehicles/${props.uid}`}
-            className="btn btn-outline-primary "
+            className="btn btn-outline-primary me-5 "
           >
             Learn More!
           </Link>
           <button
-            className="btn btn-outline-warning"
+            className="btn btn-outline-warning ms-5"
             id="heart"
             onClick={() => {
               actions.addFavorite({
